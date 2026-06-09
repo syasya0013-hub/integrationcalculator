@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Integration Calculator</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f7;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .sidebar {
+            background: #fafafa;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e5e5e5;
+        }
+
+        .heading {
+            margin-top: 0;
+            color: #333;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        .result-box {
+            margin-top: 25px;
+            padding: 15px;
+            background: #e3f2fd;
+            border-left: 5px solid #2196f3;
+            border-radius: 4px;
+        }
+
+        .result-title {
+            font-weight: bold;
+            color: #0d47a1;
+            margin-bottom: 5px;
+        }
+
+        .result-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1565c0;
+        }
+
+        .graph-container {
+            position: relative;
+            min-height: 400px;
+            width: 100%;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="sidebar">
+        <h2 class="heading">Integration Control</h2>
+        
+        <div class="input-group">
+            <label for="functionSelect">Function f(x)</label>
+            <select id="functionSelect">
+                <option value="x * x">x²</option>
+                <option value="Math.sin(x)">sin(x)</option>
+                <option value="Math.cos(x)">cos(x)</option>
+                <option value="Math.exp(x)">e^x</option>
+                <option value="3 * x">3x</option>
+                <option value="Math.pow(x, 3) - 2 * x">x³ - 2x</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label for="lowerLimit">Lower Limit (a)</label>
+            <input type="number" id="lowerLimit" value="0" step="0.5">
+        </div>
+
+        <div class="input-group">
+            <label for="upperLimit">Upper Limit (b)</label>
+            <input type="number" id="upperLimit" value="2" step="0.5">
+        </div>
+
+        <div class="input-group">
